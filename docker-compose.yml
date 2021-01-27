@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  api:
+    container_name: stone_challenge_api
+    build: .
+    environment:
+      DB_HOST: postgres
+    depends_on:
+      - postgres
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/usr/src/app
+      - ./node_modules:/usr/src/app/node_modules
+  postgres:
+    container_name: stone_challnge_db
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: stone
+    ports:
+      - 5432:5432

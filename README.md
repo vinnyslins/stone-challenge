@@ -11,7 +11,7 @@ yarn
 ## Usage
 
 ```sh
-yarn start:dev
+docker-compose up
 ```
 
 ## Run tests

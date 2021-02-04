@@ -1,7 +1,9 @@
 import express from 'express'
 
+import EmployeeRoutes from './routes/Employee'
+
 const app = express()
 
-app.get('/', (req, res) => res.json({ message: 'Hello, Stone!!!' }))
+app.use('/api', EmployeeRoutes)
 
 export default app

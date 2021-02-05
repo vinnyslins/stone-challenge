@@ -7,6 +7,8 @@ const routes = Router()
 
 routes.get('/employees', controller.getEmployees)
 
+routes.get('/employees/:id', controller.getEmployeeById)
+
 routes.post('/employees', celebrate({
   [Segments.BODY]: Joi.object({
     name: Joi.string().required(),

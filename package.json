@@ -6,6 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "migrate": "knex migrate:latest --knexfile src/database/knexfile.ts",
+    "migrate:down": "knex migrate:down --knexfile src/database/knexfile.ts",
     "start": "node dist",
     "start:dev": "ts-node-dev src"
   },

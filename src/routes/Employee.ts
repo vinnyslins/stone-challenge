@@ -17,4 +17,21 @@ routes.post('/employees', celebrate({
   })
 }), controller.createEmployee)
 
+routes.put('/employees/:id', celebrate({
+  [Segments.PARAMS]: {
+    id: Joi.number().integer().positive().required()
+  },
+  [Segments.BODY]: Joi.object({
+    name: Joi.string().required(),
+    age: Joi.number().integer().positive().required(),
+    position: Joi.string().required()
+  })
+}), controller.updateEmployee)
+
+routes.delete('/employees/:id', celebrate({
+  [Segments.PARAMS]: {
+    id: Joi.number().integer().positive().required()
+  }
+}), controller.deleteEmployee)
+
 export default routes

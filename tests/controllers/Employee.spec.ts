@@ -100,4 +100,23 @@ describe('Employee controller', () => {
       expect(status).toBe(404)
     })
   })
+
+  describe('PUT /employess/:id', () => {
+    it('should return status code 200 and update a employee', async () => {
+      const { status, body } = await request(app)
+        .delete('/api/employees/1')
+
+      const expected = { id: 1, name: 'Vinnys', age: 21, position: 'Software engineer' }
+
+      expect(status).toBe(200)
+      expect(body).toEqual(expected)
+    })
+
+    it('should return status code 404 if the employee does not exist', async () => {
+      const { status } = await request(app)
+        .delete('/api/employees/2')
+
+      expect(status).toBe(404)
+    })
+  })
 })

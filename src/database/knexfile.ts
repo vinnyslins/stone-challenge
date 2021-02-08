@@ -19,7 +19,15 @@ export default {
   },
   production: {
     client: 'postgresql',
-    connection: process.env.DATABASE_URL
+    connection: {
+      host: process.env.DB_HOST,
+      database: process.env.DB_DATABASE,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      ssl: {
+        rejectUnauthorized: false
+      }
+    }
   },
   test: {
     client: 'sqlite3',

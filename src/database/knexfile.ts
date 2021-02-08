@@ -17,6 +17,10 @@ export default {
       directory: './migrations'
     }
   },
+  production: {
+    client: 'postgresql',
+    connection: process.env.DATABASE_URL
+  },
   test: {
     client: 'sqlite3',
     connection: {

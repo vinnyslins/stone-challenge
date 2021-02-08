@@ -4,6 +4,8 @@ info:
   description: Stone software engineering challenge made by Vinnys Lins
   version: 1.0.0
 servers:
+  - url: https://stone-fullstack-challenge.herokuapp.com/api
+    description: Production server
   - url: http://localhost:3000/api
     description: Local server
 tags:

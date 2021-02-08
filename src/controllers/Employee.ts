@@ -19,7 +19,7 @@ export const getEmployeeById = async (req: Request, res: Response) => {
 
 export const createEmployee = async (req: Request, res: Response) => {
   const [employee] = await connection('employees').returning('*').insert<IEmployee[]>(req.body)
-  return res.json(employee)
+  return res.status(201).json(employee)
 }
 
 export const updateEmployee = async (req: Request, res: Response) => {

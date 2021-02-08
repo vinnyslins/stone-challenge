@@ -14,6 +14,8 @@ yarn
 docker-compose up
 ```
 
+Then open http://localhost:3000/docs in your browser
+
 ## Run tests
 
 ```sh

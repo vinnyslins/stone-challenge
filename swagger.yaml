@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: Stone software engineering challenge
+  description: Stone software engineering challenge made by Vinnys Lins
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Local server
+tags:
+  - name: Employees
+paths:
+  /employees:
+    get:
+      tags:
+        - Employees
+      summary: Returns a list of employees
+      responses:
+        200:
+          description: A JSON array of employees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+        500:
+          description: Internal server error
+    post:
+      tags:
+        - Employees
+      summary: Creates new employee
+      requestBody:
+        description: Employee payload
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeePayload'
+      responses:
+        201:
+          description: A JSON of the new employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        400:
+          description: Employee payload error
+        500:
+          description: Internal server error
+  /employees/{id}:
+    get:
+      tags:
+        - Employees
+      summary: Returns one employee
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: A JSON of the employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        404:
+          description: Employee not found
+        500:
+          description: Internal server error
+    put:
+      tags:
+        - Employees
+      summary: Updates one employee
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: Employee payload
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeePayload'
+      responses:
+        200:
+          description: A JSON of the updated employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        400:
+          description: Employee payload error
+        404:
+          description: Employee not found
+        500:
+          description: Internal server error
+    delete:
+      tags:
+        - Employees
+      summary: Deletes one employee
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: A JSON of the deleted employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        404:
+          description: Employee not found
+        500:
+          description: Internal server error
+components:
+  schemas:
+    EmployeePayload:
+      type: object
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+        position:
+          type: string
+      required:
+        - name
+        - age
+        - position
+    Employee:
+      allOf:
+        - $ref: '#/components/schemas/EmployeePayload'
+        - type: object
+          properties:
+            id:
+              type: integer
+          required:
+            - id

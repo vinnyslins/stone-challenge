@@ -49,4 +49,23 @@ describe('Employee controller', () => {
       expect(status).toBe(404)
     })
   })
+
+  describe('POST /employees', () => {
+    it('should return status code 201 and create a employee', async () => {
+      const { status, body } = await request(app)
+        .post('/api/employees')
+        .send({ name: 'Carlos', age: 25, position: 'Data engineer' })
+
+      expect(status).toBe(201)
+      expect(body).toBe(2)
+    })
+
+    it('should return status code 400 if a disallowed field is sent', async () => {
+      const { status } = await request(app)
+        .post('/api/employees')
+        .send({ foo: 'bar' })
+
+      expect(status).toBe(400)
+    })
+  })
 })

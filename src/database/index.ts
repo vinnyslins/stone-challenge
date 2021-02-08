@@ -2,9 +2,7 @@ import knex from 'knex'
 
 import configuration from './knexfile'
 
-const config = process.env.NODE_ENV === 'test'
-  ? configuration.test
-  : configuration.development
+const config = (configuration as any)[process.env.NODE_ENV || 'development']
 
 const connection = knex(config)
 

@@ -32,7 +32,8 @@ export default {
   test: {
     client: 'sqlite3',
     connection: {
-      filename: './test.sqlite3'
-    }
+      filename: path.join(__dirname, 'test.sqlite3')
+    },
+    useNullAsDefault: true
   }
 }

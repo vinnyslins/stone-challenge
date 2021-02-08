@@ -25,25 +25,21 @@ export const createEmployee = async (req: Request, res: Response) => {
 export const updateEmployee = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id)
 
-  const [employee] = await connection('employees')
-    .where({ id })
-    .returning('*')
-    .update<IEmployee[]>(req.body)
-
+  const employee = await connection('employees').where({ id }).first()
   if (!employee) return res.status(404).json({ error: 'Employee not found' })
 
-  return res.json(employee)
+  await connection('employees').where({ id }).update(req.body)
+
+  return res.json({ id, ...req.body })
 }
 
 export const deleteEmployee = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id)
 
-  const [employee] = await connection('employees')
-    .where({ id })
-    .returning('*')
-    .delete<IEmployee[]>(req.body)
-
+  const employee = await connection('employees').where({ id }).first()
   if (!employee) return res.status(404).json({ error: 'Employee not found' })
+
+  await connection('employees').where({ id }).delete()
 
   return res.json(employee)
 }

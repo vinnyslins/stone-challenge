@@ -52,12 +52,15 @@ describe('Employee controller', () => {
 
   describe('POST /employees', () => {
     it('should return status code 201 and create a employee', async () => {
-      const { status, body } = await request(app)
+      const { status } = await request(app)
         .post('/api/employees')
         .send({ name: 'Carlos', age: 25, position: 'Data engineer' })
 
+      const employee = await connection('employees').where({ id: 2 }).first()
+      const expected = { id: 2, name: 'Carlos', age: 25, position: 'Data engineer' }
+
       expect(status).toBe(201)
-      expect(body).toBe(2)
+      expect(employee).toEqual(expected)
     })
 
     it('should return status code 400 if a disallowed field is sent', async () => {
@@ -66,6 +69,35 @@ describe('Employee controller', () => {
         .send({ foo: 'bar' })
 
       expect(status).toBe(400)
+    })
+  })
+
+  describe('PUT /employess/:id', () => {
+    it('should return status code 200 and update a employee', async () => {
+      const { status, body } = await request(app)
+        .put('/api/employees/1')
+        .send({ name: 'Vinnys', age: 22, position: 'Data engineer' })
+
+      const expected = { id: 1, name: 'Vinnys', age: 22, position: 'Data engineer' }
+
+      expect(status).toBe(200)
+      expect(body).toEqual(expected)
+    })
+
+    it('should return status code 400 if a disallowed field is sent', async () => {
+      const { status } = await request(app)
+        .put('/api/employees/1')
+        .send({ foo: 'bar' })
+
+      expect(status).toBe(400)
+    })
+
+    it('should return status code 404 if the employee does not exist', async () => {
+      const { status } = await request(app)
+        .put('/api/employees/2')
+        .send({ name: 'Vinnys', age: 22, position: 'Data engineer' })
+
+      expect(status).toBe(404)
     })
   })
 })
